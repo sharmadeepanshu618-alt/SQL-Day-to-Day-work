@@ -1,0 +1,21 @@
+- 11july(numeric function)
+select*from country;
+select lifeexpectancy,round(lifeexpectancy) from country;
+select 34.85,round(34.2);
+select 74.469,round(74.469,1);
+select 74.469,round(74.469,2);
+
+-- round off to nearest 10,100,1000
+select 9,round(9.2,-1);
+select 9,round(13.2,-1);
+select 9,round(15.2,-1);
+select 9,round(13.2,-2);
+select 13.2,round(252.2,-2);
+select 13.2,round(252.2,-1);
+select 13.2,round(7654.2,-3);
+
+select round(34.857,1),truncate(34.857,1),mod(4,2),mod(3,5);
+select floor(34.001),floor(34.9999),ceil(34.00001);
+
+select abs(10.111),abs(-10.12312333);
+
