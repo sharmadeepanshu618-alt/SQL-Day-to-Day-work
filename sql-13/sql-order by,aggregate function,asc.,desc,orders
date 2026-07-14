@@ -1,0 +1,42 @@
+
+-- scalerfunction
+
+-- multiple rows pe apply ho vese functions
+use world;
+select continent from country;
+select distinct(continent) from country;
+select name from country;
+select distinct(name) from country;
+
+select count(continent),count(distinct(continent)) from country;
+select count(continent),count(distinct(name)) from country;
+
+select count(population),sum(population),avg(population) from country;
+
+select count(surfacearea),sum(surfacearea),max(surfacearea) from country;
+
+select count(continent),max(continent),min(continent) from country;-- date pe v yahi fun lagenge
+select max(date( now())),min(now());
+
+-- population =>non aggregate column
+select population,count(population) from country;
+select avg(population),avg(replace(population,1,4)) from country;
+select avg( replace(population,0,'')) from country;
+select avg(population), avg( replace(population,0,'')) from country;
+
+-- data sortkrna(order by clause)
+select name,continent, region,population from country
+order by name;
+select name,continent, region,population from country
+order by name desc;
+select name,continent, region,population from country
+order by population,name;
+select name,continent, region,population from country
+order by continent,name;
+
+-- region ascending order sort
+-- in each region we sort the data based on population in discending order
+select name,continent,region,population from country
+order by region,population desc;
+
+
