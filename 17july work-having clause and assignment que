@@ -1,0 +1,11 @@
+-- having clause 
+use world;
+
+
+
+select continent,count(*) from country group by continent;
+select count(name) from country where indepyear=1991;
+select indepyear,count(name) from country group by indepyear;
+select indepyear,count(name) from country group by indepyear
+having count(name)>10;
+select*from country;
