@@ -1,0 +1,62 @@
+Q1. List each employee with their department name and location.
+select e.emp_id,e.emp_name,d.dept_name,d.location from employees as e join
+ departments as d on e.dept_id=d.dept_id ;
+ 
+ -- Q2. Show every project along with the name of the department that owns it.
+ select p.proj_id,p.proj_name,d.dept_name,p.budget from projects as p 
+ join departments as d 
+ on d.dept_id=p.dept_id; 
+ 
+ -- Q3. Show employee names together with the projects run by their own department.
+ select e.emp_name,d.dept_name,p.proj_name from employees as e 
+  join departments as d
+ on e.dept_id=d.dept_id
+  join projects as p
+ on d.dept_id=p.dept_id;
+ 
+ -- Q4. List ALL employees with their department name; show NULL when the employee has no matching department.
+ select e.emp_id,e.emp_name,e.dept_id,d.dept_name from employees as e
+ left join departments as d ON e.dept_id = d.dept_id; 
+ 
+ -- Q5. List ALL departments with their projects; departments with no project must still appear.
+select d.dept_id,
+d.dept_name,
+p.proj_name,
+p.budget 
+from departments as d
+left join projects as p
+on d.dept_id=p.dept_id;
+
+-- Q6. Find only those employees who do NOT belong to any valid department.
+select e.emp_id,
+e.emp_name,
+e.dept_id from employees e
+left join departments d
+on e.dept_id=d.dept_id
+ where d.dept_id is null;
+
+-- Q7. List ALL departments and any employees in them, using a RIGHT JOIN with employees on the left
+select e.emp_name,d.dept_id,d.dept_name 
+from employees e
+right join departments d
+on e.dept_id=d.dept_id;
+
+-- Q8. List ALL projects and the department that owns them, keeping projects that point to a missing department.
+select d.dept_name,p.proj_name,p.proj_id,p.dept_id
+from departments d
+right join projects p
+on d.dept_id=p.dept_id;
+
+-- Q9. Find departments that currently have NO employee assigned.
+select d.dept_id,d.dept_name,d.location
+from departments d
+left join employees e
+on d.dept_id=e.dept_id
+where e.emp_id is null;
+
+-- Q10. Produce every possible pairing of the Finance/Legal departments with employees earning above 70000.
+select e.emp_name,e.salary,d.dept_name
+from employees e
+ join departments d
+where e.salary>70000
+and d.dept_name IN ('Finance', 'Legal'); 
