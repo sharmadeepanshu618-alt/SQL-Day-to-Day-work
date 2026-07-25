@@ -1,0 +1,65 @@
+-- 24july test join tak ka
+-- 25july topic ==>ifnill,case,if-else,coalesce 
+
+use sakila;
+show tables;
+use world;
+select name,indepyear,indepyear+100,ifnull(indepyear,0) from country;
+
+select name,indepyear,lifeexpectancy,coalesce(indepyear,lifeexpectancy,name)  from country;
+
+-- case statement
+select name,population,indepyear,
+if(indepyear>1947,'after india','before india independence') from country;
+
+select name,population,indepyear,
+if(indepyear>1947,'after india',
+      if(indepyear>1920,'just before india','before india independence') )from country;
+
+
+ -- case syntex     
+-- select col,col2,
+-- case
+ --   when   condition   then - - - -
+ --   when condition2  then - - - -
+-- end case
+-- from table    
+
+select name,population,indepyear,
+case
+    when indepyear>1947  then  'after 1947'
+    when indepyear>=1919  then  'only after 1919'
+    
+    else 'else condition'
+end from country;   
+
+select name,continent,population,
+case
+     when population between 200000 and 500000  then  'avg population '
+     when population >500000  then 'large popultion'
+     
+     else 'small population'
+ end as category from country;
+ 
+ select continent,count(*) ,
+ case
+      when count(*)>10 then 'small continent'
+      when count(*)>15 then 'avg continent'
+      when count(*)>25 then 'large continent'
+end as category
+from country
+group by continent;      
+
+-- ese case mai ulti conditins likhni hai
+
+ select continent,count(*) ,
+ case
+      when count(*)>25 then 'large continent'
+      when count(*)>15 then 'avg continent'
+      
+else 'small continent'
+end as category
+from country
+group by continent; 
+    
+      
