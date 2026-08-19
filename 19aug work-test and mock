@@ -1,0 +1,737 @@
+Which of the following best describes the primary purpose of SQL in a relational database management system (RDBMS)?
+
+Correct
+4/4
+A
+A programming language used to build web applications and APIs.
+B
+A domain-specific language used to define, manipulate, control, and query data stored in a relational database.
+Correct
+C
+An object-oriented language used exclusively for database backup and recovery tasks.
+D
+A scripting language embedded inside HTML to display database results on web pages.
+2
+What is the difference between the WHERE clause and the HAVING clause in SQL?
+
+Correct
+4/4
+A
+WHERE and HAVING are interchangeable; both filter rows before grouping.
+B
+WHERE filters individual rows before GROUP BY is applied; HAVING filters groups after GROUP BY and aggregate functions have been computed.
+Correct
+C
+HAVING filters individual rows; WHERE filters grouped results after aggregation.
+D
+WHERE can only be used with numeric columns; HAVING can be used with any data type.
+3
+SELECT department, COUNT(*) AS emp_count
+FROM employees
+WHERE salary > 40000
+GROUP BY department
+HAVING COUNT(*) > 5
+ORDER BY emp_count DESC;
+What is the correct logical execution order of the SQL clauses in this query?
+
+Correct
+4/4
+A
+SELECT → FROM → WHERE → GROUP BY → HAVING → ORDER BY
+B
+FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY
+Correct
+C
+WHERE → FROM → GROUP BY → SELECT → HAVING → ORDER BY
+D
+FROM → GROUP BY → WHERE → HAVING → SELECT → ORDER BY
+4
+What is the difference between DELETE, TRUNCATE, and DROP in SQL?
+
+Correct
+4/4
+A
+All three commands permanently remove both data and the table structure.
+B
+DELETE removes rows one by one with logging and can be rolled back. TRUNCATE removes all rows at once with minimal logging, preserves table structure, and cannot fire row-level triggers. DROP removes both all data and the table structure permanently.
+Correct
+C
+TRUNCATE and DELETE are identical. DROP only removes indexes, not the table.
+D
+DELETE can only remove one row at a time. TRUNCATE removes one column at a time. DROP removes the database.
+5
+What does the DISTINCT keyword do in SQL, and in which clause is it placed?
+
+Correct
+4/4
+A
+DISTINCT is placed in the WHERE clause to filter duplicate conditions.
+B
+DISTINCT is placed in the SELECT clause to eliminate duplicate rows from the result set, returning only unique combinations of the selected columns.
+Correct
+C
+DISTINCT is placed in the GROUP BY clause to group unique values before aggregation.
+D
+DISTINCT is placed in the FROM clause to specify that the table should be read without caching.
+6
+-- Table: products
+-- Columns: product_id, name, category, price, stock
+
+SELECT category, AVG(price) AS avg_price
+FROM products
+GROUP BY category
+ORDER BY avg_price DESC
+LIMIT 3;
+What does this query return?
+
+Correct
+4/4
+A
+The 3 cheapest products across all categories.
+B
+The top 3 categories ordered by their average product price from highest to lowest.
+Correct
+C
+The 3 most expensive individual products with their category name.
+D
+The 3 categories that have the highest number of products in stock.
+7
+What constraints does a PRIMARY KEY enforce in SQL?
+
+Correct
+4/4
+A
+A PRIMARY KEY enforces that values are unique but allows NULL entries.
+B
+A PRIMARY KEY enforces uniqueness across all rows and disallows NULL values. A table can have only one primary key, which may span multiple columns (composite key).
+Correct
+C
+A PRIMARY KEY enforces uniqueness only within the same partition of the table.
+D
+A PRIMARY KEY enforces that values are NOT NULL but allows duplicate entries.
+8
+What is the difference between a UNIQUE constraint and a PRIMARY KEY constraint in SQL?
+
+Correct
+4/4
+A
+Both UNIQUE and PRIMARY KEY behave identically in all scenarios.
+B
+A table can have only one PRIMARY KEY but multiple UNIQUE constraints. PRIMARY KEY never allows NULLs. UNIQUE allows one NULL per column in most RDBMS since NULL is not considered equal to NULL per the SQL standard.
+Correct
+C
+UNIQUE allows duplicate values but disallows NULLs; PRIMARY KEY allows NULLs but disallows duplicates.
+D
+UNIQUE can only be applied to numeric columns; PRIMARY KEY can be applied to any data type.
+9
+Which SQL sub-language do CREATE, ALTER, and DROP belong to, and what is its purpose?
+
+Correct
+4/4
+A
+DML (Data Manipulation Language) — used to insert, update, delete, and retrieve rows.
+B
+DDL (Data Definition Language) — used to define, modify, and remove the structure of database objects such as tables, indexes, views, and schemas.
+Correct
+C
+DCL (Data Control Language) — used to grant and revoke user permissions.
+D
+TCL (Transaction Control Language) — used to manage transaction boundaries.
+10
+Which SQL sub-language covers INSERT, UPDATE, and DELETE, and what is its purpose?
+
+Correct
+4/4
+A
+DDL — CREATE, ALTER, DROP.
+B
+DCL — GRANT, REVOKE.
+C
+DML (Data Manipulation Language) — used to add, modify, and remove data within existing tables.
+Correct
+D
+TCL — COMMIT, ROLLBACK, SAVEPOINT.
+11
+Which SQL sub-language is used to GRANT read access to a user and later REVOKE it?
+
+Correct
+4/4
+A
+DML — INSERT and DELETE manage user access records.
+B
+DDL — ALTER TABLE modifies table-level permissions.
+C
+DCL (Data Control Language) — GRANT gives database privileges to users or roles; REVOKE removes those privileges.
+Correct
+D
+TCL — COMMIT and ROLLBACK control whether permission changes take effect.
+12
+What does TCL stand for in SQL, and what is the purpose of the SAVEPOINT command?
+
+Correct
+4/4
+A
+TCL stands for Table Control Language; SAVEPOINT splits a table into partitions for faster access.
+B
+TCL stands for Transaction Control Language; SAVEPOINT marks a point within a transaction so a ROLLBACK TO SAVEPOINT can undo only changes made after that point, without rolling back the entire transaction.
+Correct
+C
+TCL stands for Transaction Control Language; SAVEPOINT commits the transaction up to that point, making changes permanent.
+D
+TCL stands for Trigger Control Language; SAVEPOINT stores query results in a temporary cache.
+13
+BEGIN TRANSACTION;
+
+UPDATE accounts SET balance = balance - 500 WHERE acc_id = 101;
+SAVEPOINT after_debit;
+
+UPDATE accounts SET balance = balance + 500 WHERE acc_id = 202;
+
+ROLLBACK TO SAVEPOINT after_debit;
+
+COMMIT;
+After this transaction completes, what is the final state of the accounts table?
+
+Correct
+4/4
+A
+Both the debit from acc_id=101 and the credit to acc_id=202 are committed.
+B
+Neither operation is committed — ROLLBACK undoes all changes in the transaction.
+C
+Only the debit from acc_id=101 (balance − 500) is committed. The credit to acc_id=202 is rolled back because ROLLBACK TO SAVEPOINT undoes changes made after the savepoint, and the final COMMIT saves only what remained.
+Correct
+D
+The credit to acc_id=202 is committed; the debit from acc_id=101 is rolled back.
+14
+What is the difference between COMMIT and ROLLBACK in SQL transaction control?
+
+Correct
+4/4
+A
+COMMIT undoes all changes made in the current transaction. ROLLBACK saves all changes permanently.
+B
+COMMIT makes all changes in the current transaction permanent and visible to other sessions. ROLLBACK undoes all changes made since the last COMMIT, restoring the database to its previous consistent state.
+Correct
+C
+COMMIT and ROLLBACK are identical — both end the transaction but take different amounts of time.
+D
+COMMIT applies only to SELECT statements. ROLLBACK applies only to DELETE statements.
+15
+Which of the following correctly lists all four SQL sub-languages with a representative command from each?
+
+Correct
+4/4
+A
+DDL: SELECT, DML: INSERT, DCL: DROP, TCL: GRANT
+B
+DDL: CREATE, DML: UPDATE, DCL: GRANT, TCL: COMMIT
+Correct
+C
+DDL: INSERT, DML: ALTER, DCL: ROLLBACK, TCL: REVOKE
+D
+DDL: DROP, DML: COMMIT, DCL: SELECT, TCL: DELETE
+16
+What does AUTO_COMMIT do in MySQL and what is its default behaviour?
+
+Correct
+4/4
+A
+AUTO_COMMIT is disabled by default; all statements wait for an explicit COMMIT.
+B
+AUTO_COMMIT is enabled by default; each individual SQL statement is automatically wrapped in its own transaction and committed immediately after execution, unless explicitly disabled with SET autocommit = 0.
+Correct
+C
+AUTO_COMMIT applies only to SELECT statements; DML statements require an explicit COMMIT.
+D
+AUTO_COMMIT only affects DDL commands; DML commands always require an explicit COMMIT.
+17
+-- employees: emp_id | name  | dept_id
+--           1      | Alice |  10
+--           2      | Bob   |  20
+--           3      | Carol |  99
+
+-- departments: dept_id | dept_name
+--               10     | Engineering
+--               20     | HR
+--               30     | Finance
+
+SELECT e.name, d.dept_name
+FROM employees e
+INNER JOIN departments d ON e.dept_id = d.dept_id;
+How many rows does this query return and which rows are included?
+
+Correct
+4/4
+A
+4 rows — all employees and all departments are included.
+B
+3 rows — all employees with NULL for departments that don't match.
+C
+2 rows — only Alice (Engineering) and Bob (HR). Carol (dept_id=99) and Finance (dept_id=30) are excluded because INNER JOIN returns only rows with a matching value in both tables.
+Correct
+D
+3 rows — Alice, Bob, and Carol — all employees regardless of department match.
+18
+-- employees: emp_id | name  | dept_id
+--           1      | Alice |  10
+--           2      | Bob   |  20
+--           3      | Carol |  99
+
+-- departments: dept_id | dept_name
+--               10     | Engineering
+--               20     | HR
+--               30     | Finance
+
+SELECT e.name, d.dept_name
+FROM employees e
+LEFT JOIN departments d ON e.dept_id = d.dept_id;
+How many rows does this query return and what value appears for Carol's dept_name?
+
+Correct
+4/4
+A
+2 rows — Carol is excluded because she has no matching department.
+B
+3 rows — Alice gets Engineering, Bob gets HR, Carol gets NULL for dept_name.
+Correct
+C
+4 rows — Alice, Bob, Carol, and Finance (with NULL employee name) are all included.
+D
+3 rows — Finance is included instead of Carol because Finance has no employee.
+19
+What is the key difference between LEFT JOIN and RIGHT JOIN in SQL?
+
+Correct
+4/4
+A
+LEFT JOIN and RIGHT JOIN always produce the same result regardless of table order.
+B
+LEFT JOIN returns all rows from the left table and matched rows from the right table (unmatched right rows are excluded). RIGHT JOIN returns all rows from the right table and matched rows from the left table. A LEFT JOIN B is equivalent to B RIGHT JOIN A.
+Correct
+C
+RIGHT JOIN cannot replicate a LEFT JOIN — they are fundamentally different operations.
+D
+LEFT JOIN can only join two tables; RIGHT JOIN can join three or more tables simultaneously.
+20
+What is a CROSS JOIN in SQL and how many rows does it produce?
+
+Correct
+4/4
+A
+CROSS JOIN returns only rows with matching keys — equivalent to INNER JOIN without an ON clause.
+B
+CROSS JOIN produces the Cartesian product of two tables, pairing every row from the first table with every row from the second table. If table A has m rows and table B has n rows, CROSS JOIN returns m × n rows.
+Correct
+C
+CROSS JOIN returns all rows from the left table even if no match exists in the right table.
+D
+CROSS JOIN joins a table to itself to compare rows within the same table.
+21
+-- employees: emp_id | name   | manager_id
+--           1      | Alice  | NULL
+--           2      | Bob    |  1
+--           3      | Carol  |  1
+--           4      | Dave   |  2
+
+SELECT e.name AS employee, m.name AS manager
+FROM employees e
+INNER JOIN employees m ON e.manager_id = m.emp_id
+ORDER BY e.name;
+What type of join is this and what rows appear in the output?
+
+Correct
+4/4
+A
+CROSS JOIN — returns all 16 combinations of employee pairs.
+B
+SELF JOIN — the employees table is joined to itself using two aliases. Output: Bob|Alice, Carol|Alice, Dave|Bob. Alice is excluded because her manager_id is NULL and INNER JOIN requires a match on both sides.
+Correct
+C
+SELF JOIN — Output includes Alice|NULL, Bob|Alice, Carol|Alice, Dave|Bob — all 4 employees.
+D
+NATURAL JOIN — automatically joins on all matching column names in the table.
+22
+What is a FULL OUTER JOIN in SQL and how does it differ from LEFT and RIGHT JOINs?
+
+Correct
+4/4
+A
+FULL OUTER JOIN returns only rows that exist in both tables — equivalent to INNER JOIN.
+B
+FULL OUTER JOIN returns ALL rows from BOTH tables. Where there is no match on either side, NULL values fill the non-matching columns. It is the union of LEFT JOIN and RIGHT JOIN results.
+Correct
+C
+FULL OUTER JOIN returns all rows from the left table and only matching rows from the right table.
+D
+FULL OUTER JOIN is a standard SQL feature fully supported in all versions of MySQL.
+23
+SELECT e.name, d.dept_name
+FROM employees e
+LEFT JOIN departments d ON e.dept_id = d.dept_id
+WHERE d.dept_id IS NULL;
+What does this query return and what pattern does it implement?
+
+Wrong
+0/4
+A
+All employees with their department names — the WHERE clause does not filter any rows.
+B
+Only employees who belong to a matching department (non-NULL dept_id).
+Your answer
+C
+Only employees who do NOT have a matching department — this is the LEFT JOIN anti-join pattern. The WHERE d.dept_id IS NULL condition filters to only the unmatched rows from the left table.
+Correct
+D
+All departments that have no employees assigned to them.
+24
+A query uses the syntax: SELECT * FROM orders o, customers c WHERE o.customer_id = c.customer_id; What type of join does this represent?
+
+Correct
+4/4
+A
+This is a FULL OUTER JOIN written in legacy syntax.
+B
+This is an implicit INNER JOIN — the comma-separated FROM clause creates a Cartesian product that is then filtered by the WHERE condition, producing the same result as an explicit INNER JOIN with an ON clause.
+Correct
+C
+This is a CROSS JOIN — the comma between tables always creates an unfiltered Cartesian product.
+D
+This is a NATURAL JOIN that automatically matches all columns with the same name.
+25
+-- employees: emp_id | name | salary | dept_id
+
+SELECT name, salary
+FROM employees
+WHERE salary > (SELECT AVG(salary) FROM employees);
+What type of subquery is this and what does it return?
+
+Correct
+4/4
+A
+A correlated subquery — it references the outer query's columns and runs once per row.
+B
+A scalar non-correlated subquery — the inner query returns a single value (the overall average salary) and executes only once. The outer query returns employees whose salary exceeds that company-wide average.
+Correct
+C
+An inline view — it creates a temporary derived table of all employees.
+D
+A nested subquery — it runs the inner query separately for each department.
+26
+-- employees: emp_id | name | dept_id | salary
+
+SELECT name, salary
+FROM employees e
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+    WHERE dept_id = e.dept_id
+);
+What makes this subquery a correlated subquery?
+
+Wrong
+0/4
+A
+It is a scalar subquery — it runs once and returns a single average for all employees.
+Your answer
+B
+The inner query references e.dept_id from the outer query. It cannot run independently — it executes once per row of the outer query, recalculating the average salary specifically for the current employee's department.
+Correct
+C
+It is an EXISTS subquery — it checks whether a department exists.
+D
+It is a UNION subquery — it combines results from two separate queries.
+27
+-- departments: dept_id | dept_name
+-- employees:   emp_id | name | dept_id | salary
+
+SELECT dept_name
+FROM departments d
+WHERE EXISTS (
+    SELECT 1
+    FROM employees e
+    WHERE e.dept_id = d.dept_id
+    AND e.salary > 80000
+);
+What does the EXISTS clause do and why is SELECT 1 used inside it?
+
+Correct
+4/4
+A
+EXISTS counts the number of employees earning over 80000 and returns that count per department.
+B
+EXISTS returns TRUE if the subquery produces at least one row. The query returns department names only if at least one employee in that department earns more than 80000. SELECT 1 is used because EXISTS only checks row existence — the actual column value returned is irrelevant.
+Correct
+C
+EXISTS is identical to IN — both check whether dept_id values match between the two tables.
+D
+EXISTS returns all departments along with the count of qualifying employees.
+28
+-- Query A (using IN):
+SELECT name FROM customers
+WHERE customer_id IN (
+    SELECT customer_id FROM orders WHERE amount > 1000
+);
+
+-- Query B (using EXISTS):
+SELECT name FROM customers c
+WHERE EXISTS (
+    SELECT 1 FROM orders o
+    WHERE o.customer_id = c.customer_id
+    AND o.amount > 1000
+);
+Which statement correctly compares IN and EXISTS in these two queries?
+
+Correct
+4/4
+A
+Query A and Query B always produce different results because IN and EXISTS work differently.
+B
+Both queries return the same result set. IN evaluates the subquery fully and compares values. EXISTS short-circuits on the first match. A critical difference: if the IN subquery returns any NULL, NOT IN may return zero rows — EXISTS does not have this NULL issue.
+Correct
+C
+EXISTS is always faster than IN regardless of data size and query context.
+D
+IN can only be used with scalar subqueries returning one column; EXISTS works with any subquery.
+29
+SELECT department, MAX(salary) AS max_salary
+FROM employees
+GROUP BY department
+HAVING MAX(salary) = (
+    SELECT MAX(salary) FROM employees
+);
+What does this query return?
+
+Correct
+4/4
+A
+The department with the highest average salary.
+B
+The department(s) containing the single highest-paid employee in the entire company, along with that maximum salary value.
+Correct
+C
+All departments sorted by their maximum salary from highest to lowest.
+D
+The total count of employees who earn the maximum salary in each department.
+30
+SELECT name, salary,
+    (SELECT dept_name FROM departments d
+     WHERE d.dept_id = e.dept_id) AS department
+FROM employees e;
+What type of subquery is used here and what is a key performance concern?
+
+Correct
+4/4
+A
+This is a subquery in the FROM clause (derived table) — no performance concern exists.
+B
+This is a scalar correlated subquery in the SELECT clause. It executes once per row of the outer query. For a table with 1 million rows, the subquery runs 1 million times — an N+1 query problem. A JOIN would be far more efficient.
+Correct
+C
+This is a non-correlated subquery — it runs once and caches the result for all rows.
+D
+This is an EXISTS subquery — it only checks whether a department exists, not its name.
+31
+SELECT name, salary
+FROM (
+    SELECT name, salary,
+           RANK() OVER (ORDER BY salary DESC) AS rnk
+    FROM employees
+) AS ranked_employees
+WHERE rnk = 2;
+What is the subquery in the FROM clause called and what does this query return?
+
+Correct
+4/4
+A
+An EXISTS subquery — it checks whether a rank=2 row exists.
+B
+A CTE (Common Table Expression) — defined with the WITH keyword before the main query.
+C
+A derived table (inline view) — a subquery in the FROM clause given a mandatory alias. This query returns the employee(s) with the second-highest salary by filtering on the RANK() window function result.
+Correct
+D
+A correlated subquery — it references the outer query's columns inside the FROM clause.
+32
+SELECT name, salary,
+    NTILE(4) OVER (ORDER BY salary DESC) AS quartile
+FROM employees;
+What does NTILE(4) do and what does the quartile column represent?
+
+Correct
+4/4
+A
+NTILE(4) rounds each salary to the nearest multiple of 4.
+B
+NTILE(4) divides the ordered result set into 4 roughly equal buckets and assigns each row a bucket number from 1 to 4. Since ORDER BY salary DESC, bucket 1 contains the highest earners and bucket 4 the lowest.
+Correct
+C
+NTILE(4) returns the rank of each employee within every group of 4 consecutive rows.
+D
+NTILE(4) calculates each employee's salary as a percentage of the top 4 salaries.
+33
+WITH dept_avg AS (
+    SELECT dept_id, AVG(salary) AS avg_salary
+    FROM employees
+    GROUP BY dept_id
+),
+top_earners AS (
+    SELECT e.name, e.salary, e.dept_id
+    FROM employees e
+    JOIN dept_avg d ON e.dept_id = d.dept_id
+    WHERE e.salary > d.avg_salary
+)
+SELECT * FROM top_earners;
+What SQL construct is this and what does it return?
+
+Correct
+4/4
+A
+Nested subqueries — two queries embedded inside each other in the WHERE clause.
+B
+A CTE (Common Table Expression) using the WITH keyword — defines named temporary result sets reusable within the same query. This returns employees whose salary exceeds their own department's average salary.
+Correct
+C
+A stored procedure — a saved SQL block that is executed by calling its name.
+D
+A temporary table created using CREATE TEMPORARY TABLE and dropped after the query.
+34
+What is a window function in SQL and how does it differ from a GROUP BY aggregate function?
+
+Correct
+4/4
+A
+Window functions are identical to aggregate functions — both collapse multiple rows into one result row per group.
+B
+Window functions compute a value across a set of rows related to the current row (defined by the OVER clause) WITHOUT collapsing the result set. Every row remains in the output and receives its computed window value. GROUP BY aggregates collapse rows into one row per group.
+Correct
+C
+Window functions can only be used in the WHERE clause to filter rows based on partition values.
+D
+Window functions replace GROUP BY entirely — GROUP BY is never needed when using window functions.
+35
+-- employees: name | dept | salary
+-- Alice | Eng | 90000
+-- Bob   | Eng | 90000
+-- Carol | Eng | 80000
+-- Dave  | HR  | 60000
+
+SELECT name, dept, salary,
+    RANK()       OVER (PARTITION BY dept ORDER BY salary DESC) AS rnk,
+    DENSE_RANK() OVER (PARTITION BY dept ORDER BY salary DESC) AS dense_rnk,
+    ROW_NUMBER() OVER (PARTITION BY dept ORDER BY salary DESC) AS row_num
+FROM employees;
+For Alice and Bob (both Eng, both 90000), what are their rnk, dense_rnk, and row_num values?
+
+Correct
+4/4
+A
+All three functions give both Alice and Bob rank=1, dense_rnk=1, row_num=1.
+B
+Alice and Bob both get rnk=1 and dense_rnk=1. RANK skips rank 2 so Carol gets rnk=3. DENSE_RANK does not skip so Carol gets dense_rnk=2. ROW_NUMBER gives unique numbers: Alice=1, Bob=2 (arbitrary for ties), Carol=3.
+Correct
+C
+RANK gives both Alice and Bob rank=2 since they are tied. DENSE_RANK gives rank=1. ROW_NUMBER gives both rank=1.
+D
+All three functions assign different ranks to Alice and Bob — tied ranks are not allowed.
+36
+SELECT name, dept, salary,
+    SUM(salary) OVER (
+        PARTITION BY dept
+        ORDER BY salary
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS running_total
+FROM employees
+ORDER BY dept, salary;
+What does the ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW frame clause define?
+
+Correct
+4/4
+A
+It calculates the sum of all rows in the entire table, ignoring partitions.
+B
+It defines a frame starting from the very first row of the current partition (UNBOUNDED PRECEDING) up to and including the current row (CURRENT ROW), creating a cumulative running total within each department.
+Correct
+C
+It limits the window to only the previous row and the current row — a 2-row window.
+D
+It calculates the sum from the current row to the very last row of the partition.
+37
+SELECT name, salary,
+    LAG(salary, 1)  OVER (ORDER BY salary) AS prev_salary,
+    LEAD(salary, 1) OVER (ORDER BY salary) AS next_salary
+FROM employees;
+What do LAG and LEAD return for the first and last rows respectively?
+
+Correct
+4/4
+A
+LAG and LEAD always return the same value — both look at an adjacent row.
+B
+For the first row, LAG(salary, 1) returns NULL because no previous row exists. For the last row, LEAD(salary, 1) returns NULL because no following row exists. A default can be specified as a third argument: LAG(salary, 1, 0) returns 0 instead of NULL.
+Correct
+C
+LAG and LEAD return 0 for boundary rows where no prior or next row exists.
+D
+LAG returns the next row's value; LEAD returns the previous row's value.
+38
+SELECT name, salary,
+    PERCENT_RANK() OVER (ORDER BY salary) AS pct_rank,
+    CUME_DIST()    OVER (ORDER BY salary) AS cume_dist
+FROM employees;
+What is the difference between PERCENT_RANK and CUME_DIST?
+
+Correct
+4/4
+A
+PERCENT_RANK and CUME_DIST are identical — both always return the same value.
+B
+PERCENT_RANK = (rank − 1) / (total rows − 1), ranging from 0 to 1 where the lowest value always returns 0. CUME_DIST = rows with value ≤ current row / total rows, ranging from 1/N to 1 where the minimum value returns 1/N, never 0.
+Correct
+C
+PERCENT_RANK returns the raw salary as a percentage of the maximum salary. CUME_DIST counts how many employees have a lower salary.
+D
+CUME_DIST ranges from 0 to 100; PERCENT_RANK ranges from 0 to 1.
+39
+SELECT name, dept, salary,
+    FIRST_VALUE(name) OVER (
+        PARTITION BY dept
+        ORDER BY salary DESC
+        ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+    ) AS top_earner
+FROM employees;
+What does FIRST_VALUE return here, and why is the explicit ROWS frame clause necessary?
+
+Wrong
+0/4
+A
+FIRST_VALUE returns the employee name with the lowest salary in each department.
+B
+FIRST_VALUE returns the first row's name from the entire table ordered by salary descending.
+Your answer
+C
+FIRST_VALUE returns the name of the highest-paid employee in each department (first row after ORDER BY salary DESC within the partition). The explicit ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING frame is necessary — without it, the default frame (RANGE UNBOUNDED PRECEDING to CURRENT ROW) causes later rows in the partition to return different 'first' values.
+Correct
+D
+FIRST_VALUE cannot be combined with PARTITION BY — it only operates on the full result set.
+40
+SELECT dept,
+    SUM(salary) OVER (PARTITION BY dept) AS dept_total,
+    SUM(salary) OVER ()                   AS grand_total,
+    ROUND(salary * 100.0 /
+        SUM(salary) OVER (PARTITION BY dept), 2) AS pct_of_dept
+FROM employees;
+What do the three different OVER() clauses produce and what does pct_of_dept calculate?
+
+Correct
+4/4
+A
+All three OVER() clauses produce the same value — they all sum all salaries in the table.
+B
+OVER(PARTITION BY dept) computes the salary total for each department, repeated on every row within that department. OVER() (empty) computes the grand total across all employees, repeated on every row. pct_of_dept calculates each employee's individual salary as a percentage of their department's total salary.
+Correct
+C
+OVER(PARTITION BY dept) collapses to one row per department. OVER() returns one single total row. The output has fewer rows than the employees table.
+D
+The query will raise an error because multiple OVER() clauses cannot appear in the same SELECT statement.
+Back
