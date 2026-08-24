@@ -1,0 +1,47 @@
+-- 23aug sun
+-- 24aug view bataya
+
+create database viewdb2;
+use viewdb2;
+
+create table employee(id int,name varchar(20),salary int);
+insert into employee values (1,'amar',10000),(2,'shivank',20000);
+
+
+-- create is used to create view object
+-- object data structure
+
+create view emp_view as select id,name from employee;-- simple view
+
+select * from emp_view;
+
+select salary from emp_view;-- will give u error
+
+-- row new insert
+insert into employee values(3,'abhi',30000);
+
+select * from emp_view;-- base table change view also got new data
+
+insert into emp_view values(4,'raj');-- view insert as per column
+select * from emp_v
+iew;
+select * from employee;
+
+create view emp_view_sum as select sum(salary) from employee;-- complex view
+select * from emp_view_sum;
+insert into emp_view_sum values(80000);-- view is not insertable
+
+create table ud(id int,name varchar(20));
+insert into ud values(1,'dee');
+insert into ud values(2,'ter');
+
+create table dd(id int,depname varchar(20));
+insert into dd values(1,'sale'),(2,'it');
+
+
+select u.id , u.name , d.depname from ud as u join dd as d on u.id = d.id;
+-- create view inner_join_view as select u.id,u.name,d.id from ud u inner join dd d on u.id=d.id-- 
+
+create view inner_join_view as select u.id , u.name , d.depname from ud as u join dd as d on u.id = d.id;
+
+select * from inner_join_view;
