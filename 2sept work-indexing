@@ -1,0 +1,42 @@
+
+
+
+use newdb2;
+ create table test18(id int,name varchar(20));
+ drop table test18;
+insert into test18 values (1,'a'),(3,'b'),(2,'c'),(5,'d'),(4,'e');
+
+explain select * from test18 where id=3;
+
+-- btree data structure
+-- primary key banane ke baad clusters index banta hai
+
+select * from test18 ;
+
+alter table test18 add primary key (id);
+select * from test18 ;
+
+explain select * from test18 where name='a'; 
+
+
+create index name_index on test18(name);
+show indexes from test18;
+select * from test18;
+
+explain select * from test18 where name='a'; 
+
+use newdb2;
+create table test19(id int,name varchar(20),age int);
+insert into test19 values (1,'a',20),(2,'b',18),(3,'c',23),(5,'e',25),(4,'d',28);
+
+select * from test19;
+explain select * from test19 where name='b' ;
+
+alter table test19 add primary key(name,age);
+create index nameage_index on test19(name,age);
+show indexes from test19;
+explain select * from test19 where name='b' ;
+explain select * from test19 where age=28 ;
+
+
+
