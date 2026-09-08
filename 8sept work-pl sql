@@ -1,0 +1,79 @@
+/*
+declare
+  declare=> variable,cursor,functions
+
+
+executable block
+    begain
+
+            logic
+
+
+    end  
+
+exceptional block
+         exceptional handling    
+
+
+begin
+
+    dbms_output.put_line('hello');
+end;    
+
+begin
+     
+    dbms_output.put_line('hello');
+    dbms_output.put_line('hello raj');
+
+end;  
+
+declare
+        age number:=19;
+begin
+     
+    dbms_output.put_line('hello');
+    dbms_output.put_line('hello raj');
+
+end;
+
+
+declare
+        age number:=19;
+begin
+     
+    dbms_output.put_line('hello');
+    dbms_output.put_line('hello raj');
+    dbms_output.put_line('age');
+    age:=20;
+         dbms_output.put_line('age');
+
+    if(age=20) THEN
+         dbms_output.put_line('we got 20')   ;
+    else       
+         dbms_output.put_line('not 20');
+    end if;
+
+
+end;         
+
+
+DECLARE
+        age number:=19;
+        x number:=1;
+BEGIN
+    while x<=age LOOP
+        dbms_output.put_line(x);
+        x:=x+1;
+    end loop;            
+end;  */
+
+DECLARE
+        num number:=1;
+        x number:=0;
+BEGIN
+    while num<=100 LOOP
+         if (num%6==0 and num%7==0) then  ;     
+         dbms_output.put_line(num);
+         num:num+1;
+    end loop;
+end;            
