@@ -1,0 +1,70 @@
+  BEGIN
+    update  employee_2 set first_name='usha';
+     dbms_output.put_line(sql%rowcount); -- %rowcount attribute
+
+  end;   
+
+
+  select * from employee_2;
+
+
+
+  DECLARE
+  cursor emp_cur is select * from employee_2;
+
+  emp_record employee_2%rowtype;
+
+
+  BEGIN
+     open emp_cur;
+
+     if (emp_cur%isopen) THEN
+         dbms_output.put_line('cursor open');
+
+     end if;
+      
+     fetch emp_cur into emp_record; 
+     dbms_output.put_line(emp_record.employee_id);
+     if(emp_cur%found) then
+       dbms_output.put_line('--cursor found here--');
+     end if;  
+ end;        
+
+
+ DECLARE
+  cursor emp_cur is select * from employee_2;
+
+  emp_record employee_2%rowtype;
+
+
+  BEGIN
+     open emp_cur;-- open cursor
+
+     if (emp_cur%isopen) THEN
+         dbms_output.put_line('cursor open');
+
+     end if;
+      
+     fetch emp_cur into emp_record; -- fetch cursor to record variable
+     
+     while(emp_cur%found) LOOP
+       dbms_output.put_line(emp_record.employee_id);
+         fetch emp_cur into emp_record;-- repet fetch from cursor
+     end loop;
+
+     close emp_cur;--close cursor    
+ end;        
+
+
+ DECLARE
+    CURSOR emp_cur IS SELECT * FROM employee_2;
+
+BEGIN
+    FOR emp IN emp_cur LOOP
+        DBMS_OUTPUT.PUT_LINE(emp.employee_id);
+    END LOOP;
+
+END;
+
+
+
