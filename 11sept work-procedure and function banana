@@ -1,0 +1,99 @@
+-- trigger & procedure
+
+/*
+CREATE OR REPLACE TRIGGER emp_audit_trigger
+AFTER UPDATE ON employees
+FOR EACH ROW
+BEGIN
+    INSERT INTO employee_audit(employee_id, old_salary, new_salary)
+    VALUES (:OLD.employee_id, :OLD.salary, :NEW.salary);
+END;
+*/
+
+
+create procedure test_p
+is 
+BEGIN
+    dbms_output.put_line('hi deep');
+end;    
+
+
+call test_p() -- alag tab mai call krne pr v kaam krega
+
+create or replace procedure test_p(x in int)
+is 
+BEGIN
+    dbms_output.put_line('hi deep'||''||x);
+end;   
+
+call test_p(10)
+
+declare 
+      v_in int:=100;
+BEGIN
+
+      v_in:=v_in+5;
+      dbms_output.put_line(v_in);
+
+      test_p(v_in);
+end;            
+
+
+create or replace procedure test_p(x in int, y out int)
+is 
+BEGIN
+    dbms_output.put_line('hi deep'||''||x);
+    y:=x*60;
+end; 
+
+declare 
+      v_in int:=100;
+      v_out int;
+BEGIN
+
+      v_in:=v_in+5;
+      dbms_output.put_line(v_in);
+
+      test_p(v_in, v_out);
+      dbms_output.put_line('value from procedure:'|| ''|| v_out);
+
+end;        
+
+
+create or replace procedure test_p9(x in out int)
+is 
+BEGIN
+    dbms_output.put_line('before'||''||x);
+    x:=x*60;
+       dbms_output.put_line('after'||''|| x);
+
+end;   
+
+declare 
+      v_in int:=100;
+      
+BEGIN
+
+      v_in:=v_in+5;
+      dbms_output.put_line('before calling procedure' || ' '  || v_in);
+
+    --   dbms_output.put_line('value from procedure:'|| ''|| v_out);
+     
+      test_p9(v_in);
+      dbms_output.put_line('after call:'|| ' ' ||v_in);
+end;
+
+
+
+create or replace function f_id(
+    a int
+)
+return int
+IS
+   
+BEGIN
+    return a+5;
+end ;        
+
+
+select employee_ID,F_ID(EMPLOYEE_ID) from employee_2;
