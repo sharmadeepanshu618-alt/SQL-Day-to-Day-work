@@ -1,0 +1,52 @@
+create or replace trigger trigger_1
+AFTER
+update on employee_2
+for each row
+BEGIN
+    dbms_output.put_line('hey trigger after update');
+end;    
+
+update employee_2 set employee_id=800;
+
+
+
+create table project_task(
+    task_id     int,
+    task_name   varchar(100) not null,
+    status      varchar(20) default'pending',
+    --audit fields:
+    created_by  varchar(50),
+    created_at  timestamp
+);
+
+drop table project_task;
+
+create table project_task(  -- 1
+   --audit fields:
+    created_by  varchar(50),
+    created_at  timestamp
+);
+
+
+insert into employee_2 values (2123,'lion');--3
+select * from project_task;--4
+
+create or replace trigger trg_tasks_audit_insert --2
+before insert on employee_2
+for each ROW
+BEGIN
+    insert into project_task values(user , systimestamp);
+    --:new.created_by:=user;
+
+    -- systempstamp captures the exact date,time,and fractional seconds
+    --:new.creates_at:=systemstamp;
+end;   
+
+
+select * from employee_2;
+
+
+
+
+
+
