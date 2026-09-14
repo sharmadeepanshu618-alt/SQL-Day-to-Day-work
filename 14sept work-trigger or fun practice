@@ -1,0 +1,24 @@
+select * from employee_2;
+insert into employee_2 values(2028,'abhi');
+
+
+create or replace trigger t_employee
+before update
+on employee_2
+for each row
+begin
+    dbms_output.put_line (:new.first_name|| ' '|| :old.first_name);
+end;    
+
+update employee_2 set first_name='aaa' where employee_id=2028;
+
+select * from employee_2;
+
+create or replace function re_str(str_er varchar)
+return VARCHAR
+is
+BEGIN
+    return substr(str_er,3,2,1)|| substr(str_er,3,2,1)|| substr(str_er,3,1,1);
+end;
+
+select employee_name,re_str(employee_name) from employee_2;
