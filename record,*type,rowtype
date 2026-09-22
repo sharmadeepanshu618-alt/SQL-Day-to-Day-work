@@ -1,0 +1,151 @@
+DECLARE 
+    type student_record is record(
+        id number,
+        name varchar(50),
+        marks number
+    );
+    stu student_record;
+begin
+    stu.id:= 1;
+    stu.name:= 'deep';
+    stu.marks:= 78;    
+
+   dbms_output.put_line('student id '||stu.id);
+   dbms_output.put_line('student name'||stu.name);
+   dbms_output.put_line('student marks'||stu.marks);
+end;   
+       
+DECLARE
+
+    TYPE emp_record IS RECORD (
+        emp_id     NUMBER,
+        emp_name   VARCHAR(50),
+        salary     NUMBER
+    );
+
+    emp emp_record;
+
+BEGIN
+
+    emp.emp_id := 101;
+    emp.emp_name := 'Rahul';
+    emp.salary := 50000;
+
+    DBMS_OUTPUT.PUT_LINE('Employee ID: ' || emp.emp_id);
+    DBMS_OUTPUT.PUT_LINE('Employee Name: ' || emp.emp_name);
+    DBMS_OUTPUT.PUT_LINE('Salary: ' || emp.salary);
+
+END;   
+-- RECORD = ek dabba jiske andar multiple
+-- related variables/fields hote hain.
+
+-- TYPE → Structure banata hai
+-- RECORD → Multiple fields ko ek saath rakhta hai
+  --   → Field ko access karta hai
+
+
+
+DECLARE
+     salary employees.salary%type;
+begin 
+    salary:= 50000;
+    dbms_output.put_line(salary);
+end;         
+
+DECLARE
+
+    emp_salary employees.salary%TYPE;
+
+BEGIN
+
+    emp_salary := 50000;
+
+    DBMS_OUTPUT.PUT_LINE(emp_salary);
+
+END;
+-- variable ka datatype exactly  table 
+-- ke jo column chaiye uske jaisa rakhna."
+-- %TYPE = kisi existing column/variable ka datatype copy karna.
+
+DECLARE
+    emp employees%rowtype;
+
+BEGIN
+    select* INTO
+    emp from employees
+    where employee_id=101;
+
+    dbms_output.put_line(emp.emp_id);
+    dbms_output.put_line(emp.first_name);
+    dbms_output.put_line(emp.salary);
+
+end;
+
+
+DECLARE
+
+    emp employees%ROWTYPE;
+
+BEGIN
+
+    SELECT *
+    INTO emp
+    FROM employees
+    WHERE employee_id = 101;
+
+    DBMS_OUTPUT.PUT_LINE(emp.employee_id);
+    DBMS_OUTPUT.PUT_LINE(emp.first_name);
+    DBMS_OUTPUT.PUT_LINE(emp.salary);
+
+END;
+--  variable ka structure table
+--  ki ek complete row jaisa bana do."
+
+
+create table employee_2 as 
+select employee_id,first_name from hr.EMPLOYEES
+fetch next 2 rows only;
+
+select * from employee_2;
+
+
+
+declare 
+       v_name varchar(20);
+BEGIN
+        select first_name into v_name from employee_2 where employee_id=100;
+        dbms_output.put_line('value of sql query');
+           dbms_output.put_line(v_name);
+end;                  
+
+
+
+
+
+declare 
+       v_name  employee_2.FIRST_NAME%TYPE;
+BEGIN
+        select first_name into v_name from employee_2 where employee_id=100;
+        dbms_output.put_line('value of sql query');
+           dbms_output.put_line(v_name);
+end;                  
+
+
+
+
+declare 
+       
+
+       v_rec   employee_2%rowtype; -- (employee_id  int,first_name varchar(20))
+BEGIN
+        select * into v_rec 
+        from employee_2 
+        where employee_id=100;
+        dbms_output.put_line(v_rec.employee_id||''||v_rec.first_name);
+           
+end;  
+
+
+
+
+       
